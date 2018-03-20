@@ -14,7 +14,9 @@ const Util = (($) => {
    * ------------------------------------------------------------------------
    */
 
-  let transition = false
+  const transition = {
+    end: 'transitionend'
+  }
 
   const MAX_UID = 1000000
   const MILLISECONDS_MULTIPLIER = 1000
@@ -37,16 +39,6 @@ const Util = (($) => {
     }
   }
 
-  function transitionEndTest() {
-    if (typeof window !== 'undefined' && window.QUnit) {
-      return false
-    }
-
-    return {
-      end: 'transitionend'
-    }
-  }
-
   function transitionEndEmulator(duration) {
     let called = false
 
@@ -64,8 +56,6 @@ const Util = (($) => {
   }
 
   function setTransitionEndSupport() {
-    transition = transitionEndTest()
-
     $.fn.emulateTransitionEnd = transitionEndEmulator
 
     if (Util.supportsTransitionEnd()) {
